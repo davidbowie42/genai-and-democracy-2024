@@ -6,22 +6,23 @@
 #
 # Below, you can find some sample code:
 
-def download_large_files():
+def download_large_files() -> bool:
     return True
 
-def check_environment():
+
+def check_environment() -> bool:
     return True
 
 
 if __name__ == "__main__":
     print("Perform your setup here.")
-    
+
     if not check_environment():
         print("Environment check failed.")
         exit(1)
-        
+
     if not download_large_files():
         print("Downloading large files failed.")
         exit(1)
-        
+
     exit(0)
