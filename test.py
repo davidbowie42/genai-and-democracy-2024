@@ -81,6 +81,8 @@ def test_inference():
     for query in queries:
         args.append("--query")
         args.append(query)
+
+    print(args)
     
     query_ids = [nanoid() for _ in queries]
     for query_id in query_ids:

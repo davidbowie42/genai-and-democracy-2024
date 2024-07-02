@@ -1,9 +1,11 @@
 from transformers import AutoModelForCausalLM, AutoTokenizer, Trainer, TrainingArguments
 from datasets import load_dataset
 
+model_id = 'meta-llama/Meta-Llama-3-8B'
+
 # Load the tokenizer and model
-tokenizer = AutoTokenizer.from_pretrained('facebook/llama-2')
-model = AutoModelForCausalLM.from_pretrained('facebook/llama-2')
+tokenizer = AutoTokenizer.from_pretrained(model_id)
+model = AutoModelForCausalLM.from_pretrained(model_id)
 
 # Load datasets
 dataset = load_dataset("wikitext", "wikitext-103-raw-v1")
@@ -22,7 +24,8 @@ training_args = TrainingArguments(
     logging_steps=10,
     evaluation_strategy="steps",       # evaluate every logging_steps
     save_strategy="steps",             # save model every logging_steps
-    save_total_limit=2                 # only keep the 2 most recent model checkpoints
+    save_total_limit=2,
+    # only keep the 2 most recent model checkpoints
 )
 
 # Initialize the Trainer
@@ -35,3 +38,5 @@ trainer = Trainer(
 
 # Start training
 trainer.train()
+
+trainer.save
