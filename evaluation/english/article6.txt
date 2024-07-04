@@ -1,0 +1,86 @@
+Angela Zhang, professor: ‘In China, the addiction of apps like TikTok, Temu or Shein has been driven to perfection’
+The researcher analyzes the impact of regulation on the Chinese tech industry, which operates with a different system due to the relationships between the government, companies and public opinion 
+
+Angela Zhang, a professor at the University of Hong Kong, is a specialist in how China regulates and monitors its technology companies. China is always cited as the second great world power: apps like TikTok, Temu and Shein are of Chinese origin and are among the most used in the world. China’s electric cars, batteries and phones are also leaders in many markets. But little is known about its internal market and the reasons for its successes and failures. Zhang, 42, has just published a book titled High Wire, about regulation and technology in China. A few days ago she visited Madrid at the invitation of the Aspen Institute to explain the internal changes in the country.
+
+Zhang is in the uncomfortable position of being pro-Chinese when she speaks in the United States — a country which is very concerned now about the rise of the new power — and too “frank” for the Chinese government: “Because I’m so frank and critical of the Chinese government, I would not be welcomed by the Chinese government,” she says. Her book is not currently translated into Chinese: “I have traveled to nine countries to present it, I have not gone to mainland China,” she says. “If it is translated, it will have a bigger influence in China and that influence may not do me any good.”
+
+Question. Why are Chinese apps so competitive abroad?
+
+Answer. Because they are really good. The barrier to entry in consumer technology is relatively low, unlike semiconductors or other hardware. And China is a huge market, a huge testing ground where companies can experiment. It’s a fiercely competitive market, and that’s partly why China has been able to foster such successful consumer technology. China is also home to many good computer engineers. They also impose an incredibly harsh work ethic on their employees. They have a 996 schedule [popular expression to refer to days from 9 a.m. to 9 p.m. and from Monday to Saturday]. They make them work very hard. They are also very good with user experience: they incorporate psychology into the system design and make it addictive.
+
+Q. It sounds almost subliminal.
+
+A. Now everyone kind of copies the Chinese in doing that. They have elevated this to another level in the design of their consumer apps.
+
+Q. You seem worried.
+
+A. What worries me most is apps being addictive because they have driven it to perfection, like TikTok, Temu or Shein. Within a company, especially in management style, it is a very competitive business environment within the firm: they divide their workforce into several teams to create the same app. That kind of internal competition really drives the product to perfection. It’s a very harsh way of management because if you’re not good, you’re out of the game. It’s like The Hunger Games. They earn a lot of money, but Chinese companies really exploit employees.
+
+Q. ChatGPT cannot be used in China.
+
+A. No, they don’t want to come to China.
+
+Q. Why?
+
+A. They don’t want to be subject to Chinese regulation. China introduced measures to regulate artificial intelligence in 2023. It subjected these firms to a lot of transparency requirements. I don’t think OpenAI or Microsoft want to disclose this kind of information to the Chinese regulators.
+
+Q. But is this transparency related to protecting socialist values?
+
+A. Yes. I also think that none of these firms will be interested in offering this kind of public service because they will need to comply with this requirement: you need to be political aligned with the socialist core values. This is the same story as to why Google left China. None of the major U.S. social media businesses are offering services in China because of the information censorship requirements.
+
+Q. How do Chinese companies avoid hallucinations with socialist values?
+
+A. When the first draft of the law came out in April last year, it included an impossible requirement: your AI needed to be accurate and true, which is impossible given those hallucination requirements. But they watered it down, and now they only need to make the best effort to ensure that it’s accurate and true. In practice, from the company’s point of view, they err on the side of caution. Often, for many questions you can’t get any answer.
+
+Q. Isn’t it a problem for the models to be so limited?
+
+A. In order to get the license from the Chinese internet regulator, they need to take a test with a thousand questions. And then they have to make sure that the accuracy rate is over 90% or something like that.
+
+Q. There are rankings of large language models in Chinese. There is a significant gap between GPT-4 and the Chinese models.
+
+A. Some claim that the capabilities of their language model are close to ChatGPT 3.5 or almost 4. But if you ask ordinary users how they feel, the user experience is definitely not as good as using ChatGPT because very often you don’t get any answer. It’s not just because the way they write can sound like a computer or a robot, and not like a human. The quality of the answers is not that good. In some ways, this hampers the development of consumer-facing GPT in China. That said, a lot of GPT’s services are catered to enterprise use and that’s not subject to regulation because what Chinese regulators are concerned about are public services that can mobilize public opinion. So, as long as you only offer services to Huawei, Xiaomi or for autonomous driving, that’s no problem.
+
+Q. China has also been celebrated for its regulation with adolescents.
+
+A. Yes. They condemned Tencent video games as spiritual opium. And they tried to restrict teenagers’ access to some of the time they spent with video games.
+
+Q. Are these measures enforced?
+
+A. Yes. It actually affected a small percentage of the business. Most video games are played by adults. Still, this kind of propaganda wins popular support for the government from many parents who worry about the abuse of these games. This is the whole point of the crackdown. The government is stepping in to empower these helpless platform participants, such as parents, teenagers, or delivery workers, drivers.
+
+Q. In the West there is a similar problem.
+
+A. Companies have become so influential and powerful that in a way you think that the Chinese government is doing the right thing.
+
+Q. But if a 12-year-old Chinese boy wants to create an account on Douyin, the Chinese TikTok, is he able to?
+
+A. There are many ways in which you need your parents’ consent to open proper social media accounts or to access games. There are various levels of cap depending on age. But I don’t think any of these platforms seriously impose this cap, because there are a million ways kids can get around this restriction.
+
+Q. That’s what we believe here. But perhaps the Chinese government has achieved this with a heavy-handed approach.
+
+A. No. People think that Chinese TikTok is cleaner and purer than TikTok abroad because the Chinese government imposes very heavy-handed control over content. But it’s not true. Because that’s how the platform makes money. They often capture attention with all these viral videos that are bad for teens. Fundamentally, the government does impose much tighter content moderation requirements on the platform, but they have a clear emphasis on politics. What really care about are political misalignments. Pornography or other harmful content is secondary. Each platform knows that this is the way to make money and this is the viral content that can generate profits. Even if the government is very powerful and vigilant, it can’t capture everything that’s happening. Their priority is politics, ensuring political alignment with socialist values.
+
+Q. But pornography still goes against socialist values.
+
+A. They care more about independence.
+
+Q. Taiwan’s independence?
+
+A. Yes. That’s enough for companies to deal with. They have to constantly adapt and change to the government’s requirements. They know this is the bottom line. They do this very carefully. Or for example, if there is a viral video that causes suicides among teenagers, they will start to worry. Because that affects social stability. At the end of the day, they care about anything that can mobilize public opinion. If it doesn’t get to that level of mobilization, they don’t care that much.
+
+Q. Deepfakes are of concern to China.
+
+A. Yes, politicians are very concerned about deepfakes. That’s why China is the first country to introduce rules to regulate it, so they introduced a law and it became effective in 2023. China is a vast country and home to a very big underground economy that specialized in producing fraud: counterfeit products, fake reviews and now deepfakes. We already have a lot of financial scandals using deepfake technology to defraud people into not sending money, and a lot of this is already happening in China.
+
+Q. Will China have a new AI law soon?
+
+A. They have started the legislative process for a national AI law. My prediction is that it will take at least two years.
+
+Q. Why will China make this law?
+
+A. There are several reasons. First, Europe is very close to finalizing one. And that, in a way, puts pressure on other major jurisdictions. It doesn’t look good that you don’t have one. It shows that your government is not doing enough to regulate this technology. So it’s good to have it on the checklist. Second, China is a very big country. Like the EU, it shares this concern of having a single entity. We want all provincial governments to work together. So having a national law provides guidance to the local governments on how to act, how to regulate AI, because local governments also have some regulatory functions.
+
+Q. But China, like the United States, also has reasons to wait.
+
+A. Yes. China may take a wait-and-see approach. Starting the process does not mean that they will do it tomorrow; although if they wanted to, they could do it tomorrow. First, they may wait and see what happens and, second, they may want to give the market and investors enough time to understand what the government intends. They don’t want the government to be seen as imposing regulations that might deter investment. This is the last thing they want and is specifically what my book talks about: China went through an unprecedented crackdown between 2020 and 2022 and one of the severe consequences of that was that international investors fled from the Chinese tech sector. There’s a crisis of confidence not just in tech but in the economy overall. The big problem now is how do we revive the economy. How do we stimulate the market? How do we regain the trust of investors? So they don’t want to impose another strict regulation that could sabotage all this confidence that they’re trying to build. They will definitely take a wait-and-see approach and even if they have a law, it could be very different from what the EU has. Even having it doesn’t mean they will enforce it.
