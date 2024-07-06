@@ -4,8 +4,23 @@
 # The input files will adhere to the format specified in datastructure/input-file.json
 
 import json
-import ollama
+from typing import List
+
+import instructor
 from os.path import join, split as split_path
+
+from openai import OpenAI, BaseModel
+from pydantic import Field
+
+from user_inference import infer_user_locale, query_to_english
+
+
+class Tags(BaseModel):
+    tags: List[str] = Field(..., description="A list of tags extracted from the article")
+
+
+PROMPT = ('Generate up to 10 tags from the following article in this format [\"tag1\", \"tag2\", \"tag3\", ..., '
+          '\"tagn\"] and output nothing else')
 
 
 def handle_input_file(file_location, output_path):
@@ -15,17 +30,38 @@ def handle_input_file(file_location, output_path):
     content: list[str] = data["content"]
     c = "".join(content)
 
-    response = ollama.chat(model='llama3', messages=[
-        {
-            'role': 'user',
-            'content': 'generate 5 tags from the following article in this format ["tag1", "tag2", "tag3", "tag4", "tag5"] and output nothing else:\n' + c
-        }])
+    client = instructor.from_openai(
+        OpenAI(
+            base_url="http://localhost:11434/v1",
+            api_key="ollama",
+        ),
+        mode=instructor.Mode.JSON,
+    )
 
-    tags = response['message']['content']
-    print(tags)
+    locale = infer_user_locale(c, client)
+
+    c = query_to_english(c, locale, client)
+    print(c)
+
+    request = PROMPT + ':\n' + c
+    print(request)
+
+    response = client.chat.completions.create(
+        model="llama3",
+        messages=[
+            {
+                'role': 'user',
+                'content': request
+            }
+        ],
+        response_model=Tags,
+    )
+
+    response.tags.sort()
+    print(response.tags)
 
     transformed_data = data
-    transformed_data["transformed_representation"] = json.dumps(tags)
+    transformed_data["transformed_representation"] = response.tags
 
     file_name = split_path(file_location)[-1]
     with open(join(output_path, file_name), "w") as f:

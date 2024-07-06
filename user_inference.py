@@ -2,7 +2,12 @@
 import argparse
 from os.path import join
 import json
-import ollama
+from typing import Literal, List
+
+import instructor
+from instructor import Instructor
+from openai import OpenAI
+from pydantic import BaseModel, Field
 from transformers import AutoTokenizer, AutoModel
 import torch
 import torch.nn.functional as F
@@ -10,38 +15,94 @@ from numpy import dot, abs
 from numpy.linalg import norm
 
 
+class Query(BaseModel):
+    translated_article: str
+
+
+class Tags(BaseModel):
+    tags: List[str] = Field(..., description="A list of tags extracted from the article")
+
+
+PROMPT = ('Generate up to 10 tags from the following article in this format [\"tag1\", \"tag2\", \"tag3\", ..., '
+          '\"tagn\"] and output nothing else')
+
+
 # TODO Implement the inference logic here
 def handle_user_query(query, query_id, output_path):
     print(query)
 
-    response = ollama.chat(model='llama3', messages=[
-        {
-            'role': 'user',
-            'content': 'generate 3 tags from the following query:\n' + query
-        }])
+    client = instructor.from_openai(
+        OpenAI(
+            base_url="http://localhost:11434/v1",
+            api_key="ollama",
+        ),
+        mode=instructor.Mode.JSON,
+    )
 
-    tags = response['message']['content']
-    print(tags)
+    locale = infer_user_locale(query, client)
+
+    query = query_to_english(query, locale, client)
+
+    response = client.chat.completions.create(
+        model="llama3",
+        messages=[
+            {
+                'role': 'user',
+                'content': PROMPT + ':\n' + query
+            }
+        ],
+        response_model=Tags,
+    )
+
+    print(response.tags)
 
     result = {
-        "generated_queries": ["sports", "soccer", "Munich vs Dortmund"],
-        "detected_language": "de",
+        "generated_queries": response.tags,
+        "detected_language": locale,
     }
-
-    rank_articles(["sports", "soccer", "Munich vs Dortmund"],
-                  [['fc bayern', 'championship', 'munich'], ['rw essen', 'dortmund', 'football']])
 
     with open(join(output_path, f"{query_id}.json"), "w") as f:
         json.dump(result, f)
 
-def infer_user_locale(query) -> str:
-    response = ollama.chat(model='llama3', messages=[
-        {
-            'role': 'user',
-            'content': 'infer the language of the following text. return only either en, de or es. this is the text:\n' + query
-        }])
 
-    return response['message']['content']
+class InferredLanguage(BaseModel):
+    language: Literal['de', 'en', 'es'] = 'en'
+
+
+def infer_user_locale(query: str, client: Instructor) -> str:
+    resp = client.chat.completions.create(
+        model="llama3",
+        messages=[
+            {
+                "role": "user",
+                "content": "infer the language of the following text. return only either en, de or es. this is the text:\n" + query,
+            }
+        ],
+        response_model=InferredLanguage,
+    )
+
+    print(resp.language)
+
+    return resp.language
+
+
+def query_to_english(query: str, locale: str, client: Instructor) -> str:
+    if locale != 'en':
+        response = client.chat.completions.create(
+            model="llama3",
+            messages=[
+                {
+                    'role': 'user',
+                    'content': 'Translate the following query to English:\n' + query
+                }
+            ],
+            response_model=Query,
+        )
+
+        return response.translated_article
+    else:
+        return query
+
 
 # TODO OPTIONAL
 # This function is optional for you
@@ -49,7 +110,7 @@ def infer_user_locale(query) -> str:
 #
 # If you do embeddings, this function will simply compute the cosine-similarity
 # and return the ordering and scores
-def rank_articles(generated_queries, article_representations):
+def rank_articles(generated_queries, article_representations) -> list[tuple[int, float]]:
     """
     This function takes as arguments the generated / augmented user query, as well as the
     transformed article representations.
@@ -66,6 +127,8 @@ def rank_articles(generated_queries, article_representations):
     # Load model from HuggingFace Hub
     tokenizer = AutoTokenizer.from_pretrained('sentence-transformers/all-MiniLM-L6-v2')
     model = AutoModel.from_pretrained('sentence-transformers/all-MiniLM-L6-v2')
+
+    ret: list[tuple[int, float]] = []
 
     for index, article in enumerate(article_representations):
         # Sentences we want sentence embeddings for
@@ -88,8 +151,18 @@ def rank_articles(generated_queries, article_representations):
 
         similarity = cosine_similarity(sentence_embeddings[0], sentence_embeddings[1])
 
+        ret.append((index, similarity))
+
         print("Sentence embeddings:")
         print(sentence_embeddings)
+
+    # sort descending by score
+    ret = sorted(ret, key=lambda x: x[1], reverse=True)
+
+    # filter out everything with a similarity less than 0.5
+    ret = [e for e in ret if e[2] >= 0.5]
+
+    return ret[:10]
 
 
 def cosine_similarity(a, b):
