@@ -16,7 +16,7 @@ from numpy.linalg import norm
 
 
 class Query(BaseModel):
-    translated_article: str
+    translated_article: str = Field(..., description="The full translated English article")
 
 
 class Tags(BaseModel):
@@ -80,8 +80,6 @@ def infer_user_locale(query: str, client: Instructor) -> str:
         ],
         response_model=InferredLanguage,
     )
-
-    print(resp.language)
 
     return resp.language
 

@@ -61,6 +61,7 @@ def handle_input_file(file_location, output_path):
     print(response.tags)
 
     transformed_data = data
+    transformed_data['content'] = c
     transformed_data["transformed_representation"] = response.tags
 
     file_name = split_path(file_location)[-1]
