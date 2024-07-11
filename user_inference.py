@@ -29,8 +29,6 @@ PROMPT = ('Generate up to 10 tags from the following article in this format [\"t
 
 # TODO Implement the inference logic here
 def handle_user_query(query, query_id, output_path):
-    print(query)
-
     client = instructor.from_openai(
         OpenAI(
             base_url="http://localhost:11434/v1",
@@ -57,13 +55,14 @@ def handle_user_query(query, query_id, output_path):
     print(response.tags)
 
     result = {
-        "generated_queries": response.tags,
+        "generated_query": response.tags,
         "detected_language": locale,
     }
 
     with open(join(output_path, f"{query_id}.json"), "w") as f:
         json.dump(result, f)
 
+    return result
 
 class InferredLanguage(BaseModel):
     language: Literal['de', 'en', 'es'] = 'en'
@@ -108,7 +107,7 @@ def query_to_english(query: str, locale: str, client: Instructor) -> str:
 #
 # If you do embeddings, this function will simply compute the cosine-similarity
 # and return the ordering and scores
-def rank_articles(generated_queries, article_representations) -> list[tuple[int, float]]:
+def rank_articles(generated_queries, article_representations) -> list[tuple[str, float]]:
     """
     This function takes as arguments the generated / augmented user query, as well as the
     transformed article representations.
@@ -120,19 +119,20 @@ def rank_articles(generated_queries, article_representations) -> list[tuple[int,
     An empty return list indicates no matches.
     """
     query = ",".join(generated_queries)
-    print(query)
 
     # Load model from HuggingFace Hub
     tokenizer = AutoTokenizer.from_pretrained('sentence-transformers/all-MiniLM-L6-v2')
     model = AutoModel.from_pretrained('sentence-transformers/all-MiniLM-L6-v2')
 
-    ret: list[tuple[int, float]] = []
+    ret: list[tuple[str, float]] = []
 
-    for index, article in enumerate(article_representations):
+    print(article_representations)
+
+    for article, tags in article_representations.items():
         # Sentences we want sentence embeddings for
-        tags = ",".join(article)
+        tags_str = ",".join(tags)
 
-        sentences = [query, tags]
+        sentences = [query, tags_str]
 
         # Tokenize sentences
         encoded_input = tokenizer(sentences, padding=True, truncation=True, return_tensors='pt')
@@ -149,16 +149,13 @@ def rank_articles(generated_queries, article_representations) -> list[tuple[int,
 
         similarity = cosine_similarity(sentence_embeddings[0], sentence_embeddings[1])
 
-        ret.append((index, similarity))
-
-        print("Sentence embeddings:")
-        print(sentence_embeddings)
+        ret.append((article, similarity))
 
     # sort descending by score
     ret = sorted(ret, key=lambda x: x[1], reverse=True)
 
     # filter out everything with a similarity less than 0.5
-    ret = [e for e in ret if e[2] >= 0.5]
+    #ret = [e for e in ret if e[2] >= 0.5]
 
     return ret[:10]
 
@@ -186,8 +183,6 @@ if __name__ == "__main__":
     queries = args.query
     query_ids = args.query_id
     output = args.output
-
-    print('test')
 
     assert len(queries) == len(query_ids), "The number of queries and query IDs must be the same."
 

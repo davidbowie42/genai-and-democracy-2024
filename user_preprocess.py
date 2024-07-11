@@ -19,8 +19,7 @@ class Tags(BaseModel):
     tags: List[str] = Field(..., description="A list of tags extracted from the article")
 
 
-PROMPT = ('Generate up to 10 tags from the following article in this format [\"tag1\", \"tag2\", \"tag3\", ..., '
-          '\"tagn\"] and output nothing else')
+PROMPT = ('Generate up to 10 tags from the following article in this format [\"tag1\", \"tag2\", \"tag3\", ..., \"tagn\"] and output nothing else')
 
 
 def handle_input_file(file_location, output_path):
@@ -41,10 +40,8 @@ def handle_input_file(file_location, output_path):
     locale = infer_user_locale(c, client)
 
     c = query_to_english(c, locale, client)
-    print(c)
 
     request = PROMPT + ':\n' + c
-    print(request)
 
     response = client.chat.completions.create(
         model="llama3",
